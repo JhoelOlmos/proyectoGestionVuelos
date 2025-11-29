@@ -46,6 +46,10 @@ return function($app): void {
               ->add(new RoleMiddleware(['administrador']))
               ->add(new AuthMiddleware());
 
+        $group->delete('/delete/{id}', [UsuariosController::class, 'delete'])
+        ->add(new RoleMiddleware(['administrador']))
+        ->add(new AuthMiddleware());
+
     });
 };
 

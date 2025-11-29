@@ -25,5 +25,47 @@ Content-Type: application/json
     "role": "gestor"
 }
 
+### Obtener vuelos
+GET http://127.0.0.1:8001/vuelos/all
 
+
+### Crear vuelo (Solo Administrador)
+PUT http://127.0.0.1:8001/vuelos/update/3
+Content-Type: application/json
+Authorization: Bearer test
+
+{
+  "origin": "Bogotá",
+  "destination": "Cali",
+  "price": 999999
+}
+
+### Eliminar vuelo (Solo Administrador)
+DELETE http://127.0.0.1:8001/vuelos/delete/ID
+
+
+
+### Eliminar vuelo
+DELETE http://127.0.0.1:8001/vuelos/delete/1
+Content-Type: application/json
+
+GET http://127.0.0.1:8001/reservas/mias
+Authorization: Bearer <token del gestor>
+
+
+POST http://127.0.0.1:8001/reservas/create
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "flight_id": 2
+}
+
+POST http://127.0.0.1:8001/naves/create
+
+GET http://127.0.0.1:8001/naves/all
+
+PUT http://127.0.0.1:8001/naves/update/{id}
+
+DELETE http://127.0.0.1:8001/naves/delete/{id}
 

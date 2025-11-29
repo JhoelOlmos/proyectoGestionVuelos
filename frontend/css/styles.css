@@ -2,11 +2,14 @@
    ESTILO GENERAL (Dark UI)
    ============================ */
 body {
-    background-color: #1e1e1e;
     color: #e4e4e4;
     font-family: "Segoe UI", sans-serif;
     margin: 0;
     padding: 20px;
+    background-color: #1e1e1e;
+}
+.login-bg {
+    background-image:url(../img/avion.png);
 }
 
 h2, h3 {
@@ -14,9 +17,7 @@ h2, h3 {
     font-weight: 500;
 }
 
-/* ============================
-   BOTONES
-   ============================ */
+
 button {
     background-color: #2962ff;
     color: white;
@@ -28,6 +29,12 @@ button {
     font-size: 15px;
     transition: 0.2s;
 }
+.button-column button {
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+}
+
 
 button:hover {
     background-color: #0039cb;
@@ -111,3 +118,71 @@ pre {
     border-radius: 6px;
     overflow: auto;
 }
+.panel 
+{
+    width: 420px;
+    padding: 40px;
+    background: #1E1E1E;
+    border: 2px solid #444;
+    border-radius: 12px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.divider
+ {
+            margin: 25px auto;
+            width: 80%;
+            border-bottom: 1px solid #555;
+        }
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #1E1E1E;
+    padding: 30px;
+    border-radius: 12px;
+    width: 350px;
+    text-align: center;
+    border: 1px solid #444;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    background: #2A2A2A;
+    border: 1px solid #555;
+    border-radius: 6px;
+    color: #fff;
+}
+
+.modal-buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-buttons button {
+    padding: 8px 20px;
+}
+
+

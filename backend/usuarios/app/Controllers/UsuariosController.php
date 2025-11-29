@@ -8,9 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class UsuariosController
 {
-    // -------------------------
-    // FUNCION AUXILIAR
-    // -------------------------
+
     private function json(Response $response, $data, int $status = 200)
     {
         $response->getBody()->write(json_encode($data));
@@ -19,18 +17,14 @@ class UsuariosController
             ->withStatus($status);
     }
 
-    // -------------------------
-    // OBTENER USUARIOS
-    // -------------------------
+  
     public function getUsuarios(Request $request, Response $response)
     {
         $rows = Usuarios::all();
         return $this->json($response, $rows);
     }
 
-    // -------------------------
-    // LOGIN
-    // -------------------------
+  
     public function login(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody();
@@ -49,8 +43,7 @@ class UsuariosController
             return $this->json($response, ['error' => 'Contraseña incorrecta'], 401);
         }
 
-        // Generar token nuevo
-        // Si ya tiene token, mantenerlo
+        
         if (!$user->token || $user->token === '') {
             $user->token = bin2hex(random_bytes(32));
             $user->save();
@@ -69,24 +62,21 @@ class UsuariosController
         ]);
     }
 
-    // -------------------------
-    // REGISTRAR USUARIO (solo admin)
-    // -------------------------
     public function register(Request $request, Response $response)
 {
     $data = $request->getParsedBody();
 
-    // Obtener Authorization header
+    
     $auth = $request->getHeaderLine('Authorization');
 
     if (!$auth) {
         return $this->json($response, ["error" => "Token requerido"], 401);
     }
 
-    // Extraer token sin "Bearer "
+    
     $token = str_replace('Bearer ', '', $auth);
 
-    // Buscar usuario por token
+    
     $user = Usuarios::where('token', $token)->first();
 
     if (!$user) {
@@ -97,26 +87,26 @@ class UsuariosController
         return $this->json($response, ["error" => "No autorizado"], 403);
     }
 
-    // Validar campos
+   
     if (!isset($data['name'], $data['email'], $data['password'], $data['role'])) {
         return $this->json($response, ["error" => "Todos los campos son requeridos"], 400);
     }
 
-    // Verificar email único
+   
     if (Usuarios::where('email', $data['email'])->exists()) {
         return $this->json($response, ["error" => "El email ya está registrado"], 409);
     }
 
-    // Validar roles permitidos
+   
     if (!in_array($data['role'], ['administrador', 'gestor'])) {
         return $this->json($response, ["error" => "Rol inválido"], 400);
     }
 
-    // Crear usuario
+    
     $nuevoUsuario = Usuarios::create([
         "name" => $data['name'],
         "email" => $data['email'],
-        "password" => $data['password'], // luego lo encriptamos
+        "password" => $data['password'], 
         "role" => $data['role']
     ]);
 
@@ -188,9 +178,7 @@ public function update(Request $request, Response $response, array $args)
 
     return $this->json($response, ["message" => "Usuario actualizado correctamente"]);
 }
-// =====================================
-// CAMBIAR ROL DE USUARIO (solo admin)
-// =====================================
+
 public function updateRole(Request $request, Response $response, array $args)
 {
     $id = (int)$args['id'];
@@ -215,7 +203,18 @@ public function updateRole(Request $request, Response $response, array $args)
 
     return $this->json($response, ["message" => "Rol actualizado correctamente"]);
 }
+public function delete(Request $request, Response $response, array $args)
+{
+    $id = (int)$args['id'];
 
+    $user = Usuarios::find($id);
 
+    if (!$user) {
+        return $this->json($response, ["error" => "Usuario no encontrado"], 404);
+    }
 
+    $user->delete();
+
+    return $this->json($response, ["message" => "Usuario eliminado correctamente"]);
+}
 }

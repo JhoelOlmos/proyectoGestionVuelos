@@ -1,7 +1,6 @@
 <?php
-
 namespace App\Middleware;
-
+die("RoleMiddleware cargado");
 use Slim\Psr7\Response as SlimResponse;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

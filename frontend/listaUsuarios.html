@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Lista de Usuarios</title>
+</head>
+<body>
+
+<h2>Lista de Usuarios</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="users-table-body"></tbody>
+</table>
+
+
+<div id="register-modal" class="modal hidden">
+    <div class="modal-content">
+        <h2>Registrar Usuario</h2>
+
+        <input type="text" id="reg-name" placeholder="Nombre completo">
+        <input type="email" id="reg-email" placeholder="Correo electrónico">
+        <input type="password" id="reg-pass" placeholder="Contraseña">
+
+        <select id="reg-role">
+            <option value="gestor">Gestor</option>
+            <option value="administrador">Administrador</option>
+        </select>
+
+        <p id="reg-msg"></p>
+
+        <div class="modal-buttons">
+            <button onclick="registerUser()">Guardar</button>
+            <button onclick="closeRegisterBox()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="edit-box" class="box hidden">
+    <h3>Editar Usuario ✏️</h3>
+
+    <input id="edit-id" type="hidden">
+    <input id="edit-name" type="text" placeholder="Nuevo nombre">
+    <input id="edit-email" type="email" placeholder="Nuevo email">
+
+    <button onclick="updateUser()">Guardar Cambios</button>
+</div>
+
+
+<div id="role-box" class="box hidden">
+    <h3>Cambiar Rol 🔄</h3>
+
+    <input id="role-id" type="hidden">
+    <select id="new-role">
+        <option value="gestor">Gestor</option>
+        <option value="administrador">Administrador</option>
+    </select>
+
+    <button onclick="updateRole()">Actualizar Rol</button>
+</div>
+
+<!-- Botones principales -->
+<button onclick="window.location.href='admin.html'">Volver al Panel</button>
+<button onclick="getUsers()">Actualizar Lista</button>
+<button onclick="openRegisterBox()">Registrar Usuario</button>
+<button class="btn-secondary" onclick="logout()">Cerrar Sesión</button>
+
+<script src="js/app.js"></script>
+</body>
+</html>

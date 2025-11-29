@@ -1,11 +1,5 @@
-// ======================================================
-// CONFIGURACIÓN
-// ======================================================
 const API = "http://127.0.0.1:8000/usuarios";
 
-// ======================================================
-// LOGIN
-// ======================================================
 async function login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -40,18 +34,14 @@ async function login() {
     }
 }
 
-// ======================================================
-// LOGOUT
-// ======================================================
+
 function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     window.location.href = "index.html";
 }
 
-// ======================================================
-// REGISTRAR USUARIO (solo admin)
-// ======================================================
+
 async function registerUser() {
     const name = document.getElementById("reg-name").value;
     const email = document.getElementById("reg-email").value;
@@ -77,14 +67,12 @@ async function registerUser() {
         return;
     }
 
-    msg.textContent = "Usuario creado ✔";
+    msg.textContent = "Usuario creado exitosamente";
     msg.style.color = "green";
     getUsers();
 }
 
-// ======================================================
-// LISTAR USUARIOS
-// ======================================================
+
 async function getUsers() {
     const body = document.getElementById("users-table-body");
 
@@ -111,15 +99,15 @@ async function getUsers() {
                 <td>
                     <button onclick="openEdit(${u.id}, '${u.name}', '${u.email}')">Editar</button>
                     <button onclick="openRole(${u.id})">Cambiar Rol</button>
+                    <button onclick="deleteUser(${u.id})">Eliminar</button>
+
                 </td>
             </tr>
         `;
     });
 }
 
-// ======================================================
-// MODAL EDITAR
-// ======================================================
+
 function openEdit(id, name, email) {
     document.getElementById("edit-box").style.display = "block";
     document.getElementById("edit-id").value = id;
@@ -148,9 +136,6 @@ async function updateUser() {
     getUsers();
 }
 
-// ======================================================
-// MODAL CAMBIAR ROL
-// ======================================================
 function openRole(id) {
     document.getElementById("role-box").style.display = "block";
     document.getElementById("role-id").value = id;
@@ -175,4 +160,36 @@ async function updateRole() {
     document.getElementById("role-box").style.display = "none";
     getUsers();
 }
+async function deleteUser(id) {
+    const confirmDelete = confirm("¿Seguro que deseas eliminar este usuario?");
+    if (!confirmDelete) return;
+
+    const res = await fetch(`${API}/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        alert(data.error || "Error al eliminar");
+        return;
+    }
+
+    alert(data.message);
+    getUsers();
+}
+function openRegisterBox() {
+    document.getElementById("register-modal").classList.remove("hidden");
+}
+
+function closeRegisterBox() {
+    document.getElementById("register-modal").classList.add("hidden");
+}
+
+
+
+
 

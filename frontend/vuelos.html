@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Vuelos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<h2>Gestión de Vuelos ✈️</h2>
+
+
+
+<hr>
+
+
+
+
+<div id="create-box" class="box" style="display:none;">
+    <h3>Registrar Vuelo</h3>
+
+    <input id="nave-id" type="number" placeholder="ID de Nave">
+    <input id="origin" type="text" placeholder="Origen">
+    <input id="destination" type="text" placeholder="Destino">
+    <input id="departure" type="datetime-local">
+    <input id="arrival" type="datetime-local">
+    <input id="price" type="number" placeholder="Precio">
+
+    <button onclick="createFlight()">Guardar</button>
+    <button onclick="document.getElementById('create-box').style.display='none'">Cancelar</button>
+</div>
+<h3>Lista de Vuelos</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nave</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Salida</th>
+            <th>Llegada</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    
+    <tbody id="flights-body"></tbody>
+</table>
+
+
+<div id="edit-box" class="box"">
+    <h3>Editar Vuelo ✏️</h3>
+
+    <input id="edit-id" type="hidden">
+    <input id="edit-nave-id" type="number" placeholder="ID de Nave">
+    <input id="edit-origin" type="text" placeholder="Origen">
+    <input id="edit-destination" type="text" placeholder="Destino">
+    <input id="edit-departure" type="datetime-local">
+    <input id="edit-arrival" type="datetime-local">
+    <input id="edit-price" type="number" placeholder="Precio">
+
+    <button onclick="updateFlight()">Guardar Cambios</button>
+    <button onclick="closeEditForm()">Cancelar</button>
+</div>
+
+<button onclick="window.location.href='admin.html'">Volver al Panel</button>
+<button onclick="showCreateForm()">Registrar Vuelo</button>
+<button onclick="logout()"class="btn-secondary">Cerrar Sesión</button>
+
+
+<script src="js/vuelos.js"></script>
+
+</body>
+</html>
+
+

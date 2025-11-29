@@ -13,7 +13,6 @@ class UsuariosRepositorios
         $controller = new UsuariosController();
         $data = $controller->getUsuarios($request, $response);
 
-        // getUsuarios ya devuelve un Response, así que simplemente lo retornamos
         return $data;
     }
 }
